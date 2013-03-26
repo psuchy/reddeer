@@ -42,7 +42,7 @@ public abstract class PreferencePage {
 			Menu menu = null;
 			// Fix for MacOS
 			if(isRunningOnMacOS()){
-				menu = new ShellMenu("Eclipse","Preferences");
+				menu = new ShellMenu("Eclipse","Preferences...");
 			}else{
 				menu = new ShellMenu("Window","Preferences");
 			}

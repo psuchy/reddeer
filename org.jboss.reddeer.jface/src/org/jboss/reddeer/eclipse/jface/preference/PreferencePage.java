@@ -1,6 +1,7 @@
 package org.jboss.reddeer.eclipse.jface.preference;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -37,13 +38,25 @@ public abstract class PreferencePage {
 			log.debug("Preferences dialog was already opened.");
 		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
-			Menu menu = new ShellMenu("Window","Preferences");
+
+			Menu menu = null;
+			// Fix for MacOS
+			if(isRunningOnMacOS()){
+				menu = new ShellMenu("Eclipse","Preferences");
+			}else{
+				menu = new ShellMenu("Window","Preferences");
+			}
+			
 			menu.select();
 			new DefaultShell(DIALOG_TITLE);
 		}
 		
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
+	}
+
+	private boolean isRunningOnMacOS() {
+		return Platform.getOS().equalsIgnoreCase("macosx");
 	}
 	
 	public String getName(){

@@ -35,7 +35,7 @@ public abstract class PreferencePage {
 	}
 
 	static {
-		System.setProperty("java.awt.headless", "false");
+		System.setProperty("java.awt.headless", "true");
 	}
 
 	public void open() {
@@ -56,6 +56,7 @@ public abstract class PreferencePage {
 				Robot robot;
 				try {
 					robot = new Robot();
+					
 					robot.setAutoWaitForIdle(true);
 					robot.keyPress(KeyEvent.VK_META);
 					robot.keyPress(KeyEvent.VK_COMMA);

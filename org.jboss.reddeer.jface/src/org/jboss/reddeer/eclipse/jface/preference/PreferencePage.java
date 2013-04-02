@@ -74,6 +74,7 @@ public abstract class PreferencePage {
 	}
 
 	private boolean isRunningOnMacOS() {
+		log.debug(Platform.getOS());
 		return Platform.getOS().equalsIgnoreCase("macosx");
 	}
 	

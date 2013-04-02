@@ -17,23 +17,28 @@ import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 
 /**
- * Represents a general preference page in the Preferences dialog. Subclasses should represent the concrete preference page. 
+ * Represents a general preference page in the Preferences dialog. Subclasses
+ * should represent the concrete preference page.
  * 
  * @author Lucia Jelinkova
- *
+ * 
  */
 public abstract class PreferencePage {
 
 	public static final String DIALOG_TITLE = "Preferences";
-	
+
 	private String[] path;
 	protected final Logger log = Logger.getLogger(this.getClass());
-	
+
 	public PreferencePage(String... path) {
 		this.path = path;
 	}
-	
-	public void open(){
+
+	static {
+		System.setProperty("java.awt.headless", "false");
+	}
+
+	public void open() {
 
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");
@@ -44,31 +49,31 @@ public abstract class PreferencePage {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 
 			Menu menu = null;
-			
+
 			// Fix for MacOS
-			if(isRunningOnMacOS()){
+			if (isRunningOnMacOS()) {
 				log.info("Running on MacOS");
-//				Robot robot;
-//				try {
-//					robot = new Robot();
-//					robot.setAutoWaitForIdle(true);
-//					robot.keyPress(KeyEvent.VK_META);
-//					robot.keyPress(KeyEvent.VK_COMMA);
-//					robot.keyRelease(KeyEvent.VK_COMMA);
-//					robot.keyRelease(KeyEvent.VK_META);
-//				} catch (AWTException e1) {
-//					// TODO Auto-generated catch block
-//					log.debug(e1);
-//				}
-				menu = new ShellMenu("Eclipse","Preferences...");
-			}else{
-				menu = new ShellMenu("Window","Preferences");
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.setAutoWaitForIdle(true);
+					robot.keyPress(KeyEvent.VK_META);
+					robot.keyPress(KeyEvent.VK_COMMA);
+					robot.keyRelease(KeyEvent.VK_COMMA);
+					robot.keyRelease(KeyEvent.VK_META);
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					log.debug(e1);
+				}
+				// menu = new ShellMenu("Eclipse","Preferences...");
+			} else {
+				menu = new ShellMenu("Window", "Preferences");
 			}
-			
+
 			menu.select();
 			new DefaultShell(DIALOG_TITLE);
 		}
-		
+
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
 	}
@@ -76,34 +81,33 @@ public abstract class PreferencePage {
 	private boolean isRunningOnMacOS() {
 		return Platform.getOS().equalsIgnoreCase("macosx");
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		DefaultCLabel cl = new DefaultCLabel();
 		return cl.getText();
 	}
-	
-	public void ok(){		
+
+	public void ok() {
 		Button b = new PushButton("OK");
 		log.info("Close Preferences dialog");
-		b.click();		
+		b.click();
 	}
 
-	public void cancel(){
+	public void cancel() {
 		Button b = new PushButton("Cancel");
 		log.info("Cancel Preferences dialog");
-		b.click();		
+		b.click();
 	}
-	
-	public void apply(){
+
+	public void apply() {
 		Button b = new PushButton("Apply");
 		log.info("Apply changes in Preferences dialog");
-		b.click();		
+		b.click();
 	}
-	
-	public void restoreDefaults(){
+
+	public void restoreDefaults() {
 		Button b = new PushButton("Restore Defaults");
 		log.info("Restore default values in Preferences dialog");
 		b.click();
 	}
 }
-

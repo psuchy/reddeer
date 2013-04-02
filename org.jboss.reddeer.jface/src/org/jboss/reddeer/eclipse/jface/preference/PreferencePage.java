@@ -1,5 +1,9 @@
 package org.jboss.reddeer.eclipse.jface.preference;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.jboss.reddeer.swt.api.Button;
@@ -40,9 +44,23 @@ public abstract class PreferencePage {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 
 			Menu menu = null;
+			
 			// Fix for MacOS
 			if(isRunningOnMacOS()){
-				menu = new ShellMenu("Eclipse","Preferences...");
+				
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.setAutoWaitForIdle(true);
+					robot.keyPress(KeyEvent.VK_META);
+					robot.keyPress(KeyEvent.VK_COMMA);
+					robot.keyRelease(KeyEvent.VK_COMMA);
+					robot.keyRelease(KeyEvent.VK_META);
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}else{
 				menu = new ShellMenu("Window","Preferences");
 			}

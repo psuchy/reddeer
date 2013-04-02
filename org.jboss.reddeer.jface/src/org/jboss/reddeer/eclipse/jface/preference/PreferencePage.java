@@ -36,7 +36,7 @@ public abstract class PreferencePage {
 	public void open(){
 
 		// if preferences dialog is not open, open it
-		log.info("Open Preferences dialog");	
+		log.info("Open Preferences dialog");
 		try {
 			new DefaultShell(DIALOG_TITLE);
 			log.debug("Preferences dialog was already opened.");
@@ -47,7 +47,7 @@ public abstract class PreferencePage {
 			
 			// Fix for MacOS
 			if(isRunningOnMacOS()){
-//				log.info("Running on MacOS");
+				log.info("Running on MacOS");
 //				Robot robot;
 //				try {
 //					robot = new Robot();

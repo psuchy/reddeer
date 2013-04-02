@@ -6,6 +6,9 @@ import java.awt.event.KeyEvent;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.swt.SWT;
+import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
+import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -53,20 +56,22 @@ public abstract class PreferencePage {
 			// Fix for MacOS
 			if (isRunningOnMacOS()) {
 				log.info("Running on MacOS");
-				Robot robot;
-				try {
-					robot = new Robot();
-					
-					robot.setAutoWaitForIdle(true);
-					robot.keyPress(KeyEvent.VK_META);
-					robot.keyPress(KeyEvent.VK_COMMA);
-					robot.keyRelease(KeyEvent.VK_COMMA);
-					robot.keyRelease(KeyEvent.VK_META);
-				} catch (AWTException e1) {
-					// TODO Auto-generated catch block
-					log.warn(e1);
-					e1.printStackTrace();
-				}
+				Keyboard keyboard = KeyboardFactory.getAWTKeyboard();
+				keyboard.pressShortcut(SWT.COMMAND, ',');
+//				Robot robot;
+//				try {
+//					robot = new Robot();
+//					
+//					robot.setAutoWaitForIdle(true);
+//					robot.keyPress(KeyEvent.VK_META);
+//					robot.keyPress(KeyEvent.VK_COMMA);
+//					robot.keyRelease(KeyEvent.VK_COMMA);
+//					robot.keyRelease(KeyEvent.VK_META);
+//				} catch (AWTException e1) {
+//					// TODO Auto-generated catch block
+//					log.warn(e1);
+//					e1.printStackTrace();
+//				}
 				// menu = new ShellMenu("Eclipse","Preferences...");
 			} else {
 				menu = new ShellMenu("Window", "Preferences");

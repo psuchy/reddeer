@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.exception.SWTLayerException;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -32,10 +31,6 @@ public abstract class PreferencePage {
 		this.path = path;
 	}
 
-	static {
-		System.setProperty("java.awt.headless", "true");
-	}
-
 	public void open() {
 
 		// if preferences dialog is not open, open it
@@ -46,12 +41,11 @@ public abstract class PreferencePage {
 		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 
-			Menu menu = null;
-
 			// Fix for MacOS
 			if (isRunningOnMacOS()) {
 				log.info("Running on MacOS");
 				Bot.get().shells()[0].pressShortcut(SWT.COMMAND, ',');
+				
 //				Robot robot;
 //				try {
 //					robot = new Robot();
@@ -66,12 +60,13 @@ public abstract class PreferencePage {
 //					log.warn(e1);
 //					e1.printStackTrace();
 //				}
-				// menu = new ShellMenu("Eclipse","Preferences...");
+				
+//				menu = new ShellMenu("Eclipse","Preferences...");
+				
 			} else {
-				menu = new ShellMenu("Window", "Preferences");
+				new ShellMenu("Window", "Preferences").select();
 			}
-
-			menu.select();
+			
 			new DefaultShell(DIALOG_TITLE);
 		}
 

@@ -47,7 +47,7 @@ public abstract class PreferencePage {
 			
 			// Fix for MacOS
 			if(isRunningOnMacOS()){
-				log.debug("Running on MacOS");
+				log.info("Running on MacOS");
 				Robot robot;
 				try {
 					robot = new Robot();
@@ -58,7 +58,7 @@ public abstract class PreferencePage {
 					robot.keyRelease(KeyEvent.VK_META);
 				} catch (AWTException e1) {
 					// TODO Auto-generated catch block
-					log.debug(e1);
+					log.info(e1);
 				}
 				
 			}else{
@@ -74,7 +74,7 @@ public abstract class PreferencePage {
 	}
 
 	private boolean isRunningOnMacOS() {
-		log.debug(Platform.getOS());
+		log.info(Platform.getOS());
 		return Platform.getOS().equalsIgnoreCase("macosx");
 	}
 	

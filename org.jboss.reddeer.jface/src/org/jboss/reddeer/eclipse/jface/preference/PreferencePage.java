@@ -62,6 +62,8 @@ public abstract class PreferencePage {
 				}
 				
 			}else{
+				log.info(Platform.getOS());
+				log.info("Not running on MacOS");
 				menu = new ShellMenu("Window","Preferences");
 			}
 			

@@ -37,10 +37,10 @@ public abstract class PreferencePage {
 
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");	
-		try {
-			new DefaultShell(DIALOG_TITLE);
-			log.debug("Preferences dialog was already opened.");
-		} catch (SWTLayerException e) {
+//		try {
+//			new DefaultShell(DIALOG_TITLE);
+//			log.debug("Preferences dialog was already opened.");
+//		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
 
 			Menu menu = null;
@@ -67,7 +67,7 @@ public abstract class PreferencePage {
 			
 			menu.select();
 			new DefaultShell(DIALOG_TITLE);
-		}
+//		}
 		
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();

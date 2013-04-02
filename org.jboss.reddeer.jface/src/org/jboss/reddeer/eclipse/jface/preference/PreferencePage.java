@@ -63,7 +63,8 @@ public abstract class PreferencePage {
 					robot.keyRelease(KeyEvent.VK_META);
 				} catch (AWTException e1) {
 					// TODO Auto-generated catch block
-					log.debug(e1);
+					log.warn(e1);
+					e1.printStackTrace();
 				}
 				// menu = new ShellMenu("Eclipse","Preferences...");
 			} else {

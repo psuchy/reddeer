@@ -42,7 +42,7 @@ public abstract class PreferencePage {
 //			log.debug("Preferences dialog was already opened.");
 //		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
-
+			log.info(isRunningOnMacOS());
 			Menu menu = null;
 			
 			// Fix for MacOS

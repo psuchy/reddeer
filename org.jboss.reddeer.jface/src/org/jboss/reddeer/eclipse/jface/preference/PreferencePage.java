@@ -47,7 +47,7 @@ public abstract class PreferencePage {
 			
 			// Fix for MacOS
 			if(isRunningOnMacOS()){
-				
+				log.debug("Running on MacOS");
 				Robot robot;
 				try {
 					robot = new Robot();
@@ -58,7 +58,7 @@ public abstract class PreferencePage {
 					robot.keyRelease(KeyEvent.VK_META);
 				} catch (AWTException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					log.debug(e1);
 				}
 				
 			}else{

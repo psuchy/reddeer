@@ -37,46 +37,43 @@ public abstract class PreferencePage {
 
 		// if preferences dialog is not open, open it
 		log.info("Open Preferences dialog");	
-//		try {
-//			new DefaultShell(DIALOG_TITLE);
-//			log.debug("Preferences dialog was already opened.");
-//		} catch (SWTLayerException e) {
+		try {
+			new DefaultShell(DIALOG_TITLE);
+			log.debug("Preferences dialog was already opened.");
+		} catch (SWTLayerException e) {
 			log.debug("Preferences dialog was not already opened. Opening via menu.");
-			log.info(isRunningOnMacOS());
+
 			Menu menu = null;
 			
 			// Fix for MacOS
 			if(isRunningOnMacOS()){
-				log.info("Running on MacOS");
-				Robot robot;
-				try {
-					robot = new Robot();
-					robot.setAutoWaitForIdle(true);
-					robot.keyPress(KeyEvent.VK_META);
-					robot.keyPress(KeyEvent.VK_COMMA);
-					robot.keyRelease(KeyEvent.VK_COMMA);
-					robot.keyRelease(KeyEvent.VK_META);
-				} catch (AWTException e1) {
-					// TODO Auto-generated catch block
-					log.info(e1);
-				}
-				
+//				log.info("Running on MacOS");
+//				Robot robot;
+//				try {
+//					robot = new Robot();
+//					robot.setAutoWaitForIdle(true);
+//					robot.keyPress(KeyEvent.VK_META);
+//					robot.keyPress(KeyEvent.VK_COMMA);
+//					robot.keyRelease(KeyEvent.VK_COMMA);
+//					robot.keyRelease(KeyEvent.VK_META);
+//				} catch (AWTException e1) {
+//					// TODO Auto-generated catch block
+//					log.debug(e1);
+//				}
+				menu = new ShellMenu("Eclipse","Preferences...");
 			}else{
-				log.info(Platform.getOS());
-				log.info("Not running on MacOS");
 				menu = new ShellMenu("Window","Preferences");
 			}
 			
 			menu.select();
 			new DefaultShell(DIALOG_TITLE);
-//		}
+		}
 		
 		TreeItem t = new DefaultTreeItem(path);
 		t.select();
 	}
 
 	private boolean isRunningOnMacOS() {
-		log.info(Platform.getOS());
 		return Platform.getOS().equalsIgnoreCase("macosx");
 	}
 	

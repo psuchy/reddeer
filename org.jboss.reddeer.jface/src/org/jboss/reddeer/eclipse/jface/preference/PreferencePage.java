@@ -1,14 +1,8 @@
 package org.jboss.reddeer.eclipse.jface.preference;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
-import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
-import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.jboss.reddeer.swt.api.Button;
 import org.jboss.reddeer.swt.api.Menu;
 import org.jboss.reddeer.swt.api.TreeItem;
@@ -18,6 +12,7 @@ import org.jboss.reddeer.swt.impl.clabel.DefaultCLabel;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.swt.util.Bot;
 
 /**
  * Represents a general preference page in the Preferences dialog. Subclasses
@@ -56,8 +51,7 @@ public abstract class PreferencePage {
 			// Fix for MacOS
 			if (isRunningOnMacOS()) {
 				log.info("Running on MacOS");
-				Keyboard keyboard = KeyboardFactory.getAWTKeyboard();
-				keyboard.pressShortcut(SWT.COMMAND, ',');
+				Bot.get().shells()[0].pressShortcut(SWT.COMMAND, ',');
 //				Robot robot;
 //				try {
 //					robot = new Robot();
